@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Shop Profile
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<div class="row py-5 px-4"> 
+    <div class="col-md-5 mx-auto"> 
+        <!-- Profile widget --> 
+        <div class="bg-white shadow rounded overflow-hidden"> 
+            <div class="px-4 pt-0 pb-4 cover" style="height: 300px;"> 
+                <div class="media align-items-end profile-head"> 
+                    <div class="profile mr-3">
+                        <img src="../media/{{result.image}}" alt="..." width="130" class="rounded mb-2 img-thumbnail" style="height: 200px; width: 180px;">
+                        <a href="{% url 'updateshop' id=result.id %}" class="btn btn-outline-dark btn-sm btn-block" style="border-color: white; color: white; margin-left: 10px;">Edit profile</a>
+                    </div> 
+                    <div class="media-body mb-5 text-white" style="margin-left: 200px; margin-top: -60px;"> 
+                        <h4 class="mt-0 mb-0">{{result.shopname}}</h4> 
+                        <p class="small mb-4"> 
+                        <i class="fas fa-map-marker-alt mr-2"></i>{{result.location}}</p> 
+                    </div> 
+                </div> 
+            </div> 
+            <!-- <div class="bg-light p-4 d-flex justify-content-end text-center"> 
+                <ul class="list-inline mb-0"> 
+                    <li class="list-inline-item"> 
+                        <h5 class="font-weight-bold mb-0 d-block">215</h5>
+                        <small class="text-muted"> 
+                        <i class="fas fa-image mr-1"></i>Photos</small> 
+                    </li> 
+                    <li class="list-inline-item"> 
+                        <h5 class="font-weight-bold mb-0 d-block">745</h5>
+                        <small class="text-muted"> 
+                        <i class="fas fa-user mr-1"></i>Followers</small> 
+                    </li> 
+                    <li class="list-inline-item"> 
+                        <h5 class="font-weight-bold mb-0 d-block">340</h5>
+                        <small class="text-muted"> 
+                        <i class="fas fa-user mr-1"></i>Following</small> 
+                    </li> 
+                </ul> 
+            </div>  -->
+            <div class="px-4 py-3" style="height: 350px;"> 
+                <h4 class="mb-0">About</h5> 
+                <div class="p-4 rounded shadow-sm bg-light" style="width: 180px;"> 
+                    <h5>Superviser :</h5><h6 class="font-italic mb-0">{{result.supervisername}}</h6><br> 
+                    <h5>Email :</h5><h6 class="font-italic mb-0">{{result.email}}</h6><br>
+                </div>
+                <div class="p-4 rounded shadow-sm bg-light" style="margin-left: 250px; width: 180px; margin-top: -200px;">
+                    <h5>Phone :</h5><h6 class="font-italic mb-0">{{result.phone}}</h6><br>
+                    <h5>Certification :</h5><h6 class="font-italic mb-0"><a href="{{result.shopcertificate.url}}">Certificate</a></h6> 
+                </div> 
+            </div> 
+            <div class="mb-4 pb-2" style="position: relative; top: 30px; left: 270px;">
+                <a href="{% url 'shopselfdelete' id=result.id %}" onclick="return deletecheck()"><img src="{% static 'images\icons8-trash-30.png' %}" alt="" style="height: 50px; width: 50px;"></a> 
+            </div>
+        </div> 
+    </div>
+</div>
+
+<script>
+    function deletecheck()
+    {
+      return confirm("Are you sure to delete the record ?");
+    }
+</script>
+
+{% endblock %}

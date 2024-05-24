@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Products List 
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<style>
+  ::placeholder {
+  color: black;
+  opacity: 1; /* Firefox */
+  }
+</style>
+
+<br><br><br>
+<div class="container">
+  <h1 align="center" style="color: rgb(15, 15, 15); font-family: Verdana, Geneva, Tahoma, sans-serif">Product List</h1>
+  <br><br><br>
+
+
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Services.." title="Type in a name" style="width: 600px; background-color: transparent; border: none; border-bottom: 2px solid rgb(68, 72, 74);">
+  <br><br><br>
+    <table class="table" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Brand Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for p in res %}
+          <tr>
+            <td>{{p.productname}}</td>
+            <td>{{p.brandname}}</td>
+            <td>{{p.price}}</td>
+            <td><a href="{% url 'shopproductdelete' id=p.id %}" onclick="return deletecheck()"><img src="{% static 'images\icons8-trash-30.png' %}" alt="" style="height: 40px; width: 40px;"></a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <script>
+        function myFunction() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
+
+      </script>
+      <br><br><br><br><br>
+</div>
+
+<script>
+  function deletecheck()
+  {
+    return confirm("Are you sure to delete the record ?");
+  }
+</script>
+
+{% endblock %}

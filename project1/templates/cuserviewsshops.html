@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Shops List 
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<style>
+  ::placeholder {
+  color: black;
+  opacity: 1; /* Firefox */
+  }
+</style>
+
+<br><br><br>
+<div class="container">
+  <h1 align="center" style="color: rgb(15, 15, 15); font-family: Verdana, Geneva, Tahoma, sans-serif">Shops List</h1>
+  <br><br><br>
+
+
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Services.." title="Type in a name" style="width: 600px; background-color: transparent; border: none; border-bottom: 2px solid rgb(68, 72, 74);">
+  <br><br><br>
+    <table class="table" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">Shop Name</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Certificate</th>
+            <th scope="col">Location</th>
+            <th scope="col">Email</th>
+            <th scope="col">Image</th>
+            <th scope="col">View Shop & Products</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for p in pc %}
+          <tr>
+            <td>{{p.shopname}}</td>
+            <td>{{p.supervisername}}</td>
+            <td>{{p.phone}}</td>
+            <td><a href="{{p.shopcertificate.url}}">View Certificate</a></td>
+            <td>{{p.location}}</td>
+            <td>{{p.email}}</td>
+            <td><img src="{{p.image.url}}" alt="" class="img-fluid" style="width: 100px;"></td>
+            <td><a href="{% url 'cuserviewproducts' id=p.id %}">View Shop & Products</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <script>
+        function myFunction() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[4];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
+
+      </script>
+      <br><br><br><br><br>
+</div>
+
+{% endblock %}

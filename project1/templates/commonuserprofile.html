@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Profile
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<section>
+<div class="row py-5 px-4"> 
+    <div class="col-md-5 mx-auto"> 
+        <!-- Profile widget --> 
+        <div class="bg-white shadow rounded overflow-hidden"> 
+            <div class="px-4 pt-0 pb-4 cover" style="height: 300px;"> 
+                <div class="media align-items-end profile-head"> 
+                    <div class="profile mr-3">
+                        <img src="../media/{{result.image}}" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                        <a href="{% url 'updatecommonuser' id=result.id %}" class="btn btn-outline-dark btn-sm btn-block" style="border-color: white; color: white;">Edit profile</a>
+                    </div> 
+                    <div class="media-body mb-5 text-white"> 
+                        <h4 class="mt-0 mb-0">{{result.username}}</h4> 
+                        <p class="small mb-4"> 
+                        <i class="fas fa-map-marker-alt mr-2"></i>{{result.location}}</p> 
+                    </div> 
+                </div> 
+            </div> 
+            <div class="px-4 py-3"> 
+                <h5 class="mb-0">About</h5> 
+                <div class="p-4 rounded shadow-sm bg-light" style="width: 230px;"> 
+                    <h5>Age :</h5><h6 class="font-italic mb-0">{{result.age}}</h6><br>
+                    <h5>Gender :</h5><h6 class="font-italic mb-0">{{result.gender}}</h6>  
+                </div>
+                <div class="p-4 rounded shadow-sm bg-light" style="margin-left: 270px; width: 240px; margin-top: -175px;">
+                    <h5>Email :</h5><h6 class="font-italic mb-0">{{result.email}}</h6><br>
+                    <h5>Phone :</h5><h6 class="font-italic mb-0">{{result.phone}}</h6>
+                </div>
+                <div class="mb-4 pb-2" style="position: relative; top: 40px; left: 230px;">
+                    <a href="{% url 'commonuserselfdelete' id=result.id %}" onclick="return deletecheck()"><img src="{% static 'images\icons8-trash-30.png' %}" alt="" style="height: 50px; width: 50px;"></a> 
+                </div>
+            </div> 
+        </div> 
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <table class="table table-striped">
+                <tr><h3>Requests to Institutions</h3></tr>
+                <tr>
+                    <div class="py-4 px-4 shadow rounded overflow-hidden" style="width: 500px; border-radius: 4px; background-color: whitesmoke;"> 
+                        <div class="d-flex align-items-center justify-content-between mb-3"> 
+                            <h5 class="mb-0">Recent Requests</h5>
+                        </div> 
+                        <div> 
+                            {% for r in res %}
+                            <div class="col-lg-6 mb-2 pr-lg-1">
+                                <h4>{{r.instituitionname.instituitionname }}</h4>
+                                <h4>{{ r.instituitionname.description }}</h4>
+                                <h5>{{r.applied_date}}</h5>
+                                <h5>{{r.status}}</h5>
+                                <form action="{% url 'paymentsuccess' %}" method="post">
+                                    {% csrf_token %}
+                                    <script src="https://checkout.stripe.com/checkout.js " class="stripe-button"
+                                    data-key="pk_test_51PGzeKSCacTPmzToFPWgmX1GDY7VxgaLSG4lw1Q5F283xx5KtFKjuRFz9ucm8Y2NcK4j9o04tJvrmaAe8x9Z5uwP00n0gVLEa9"
+                                    data-description="Payment Gateway"
+                                    data-amount="500"
+                                    data-locals="auto">
+                                  </script>
+                                </form> 
+                            </div><hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <table class="table table-striped">
+                <tr><h3>Requests to Clubs</h3></tr>
+                <tr>
+                    <div class="py-4 px-4 shadow rounded overflow-hidden" style="width: 500px; border-radius: 4px; background-color: whitesmoke;"> 
+                        <div class="d-flex align-items-center justify-content-between mb-3"> 
+                            <h5 class="mb-0">Recent Requests</h5>
+                        </div> 
+                        <div> 
+                            {% for r in re %}
+                            <div class="col-lg-6 mb-2 pr-lg-1">
+                                <h4>{{r.clubname.clubname}}</h4>
+                                <h4>{{r.clubname.description}}</h4>
+                                <h5>{{r.applied_date}}</h5>
+                                <h5>{{r.status}}</h5>
+                                <form action="{% url 'paymentsuccess' %}" method="post">
+                                    {% csrf_token %}
+                                    <script src="https://checkout.stripe.com/checkout.js " class="stripe-button"
+                                    data-key="pk_test_51PGzeKSCacTPmzToFPWgmX1GDY7VxgaLSG4lw1Q5F283xx5KtFKjuRFz9ucm8Y2NcK4j9o04tJvrmaAe8x9Z5uwP00n0gVLEa9"
+                                    data-description="Payment Gateway"
+                                    data-amount="500"
+                                    data-locals="auto">
+                                  </script>
+                                </form> 
+                            </div><hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</section>
+<br>
+
+<script>
+    function deletecheck()
+    {
+      return confirm("Are you sure to delete the record ?");
+    }
+</script>
+
+
+{% endblock %}

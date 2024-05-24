@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Product Payment
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+
+<div class="row py-5 px-4"> 
+    <div class="col-md-5 mx-auto"> 
+        <!-- Profile widget --> 
+        <div class="bg-white shadow rounded overflow-hidden"> 
+            <form method="POST" action="{% url 'placeorders' id=result.id %}" style="height: 400px;">
+                {% csrf_token %}
+                <div class="px-4 py-3" style="height: 350px;"> 
+                    <h4 class="mb-0">About</h5> 
+                    <div class="p-4 rounded shadow-sm bg-light" style="width: 180px;"> 
+                        <h5>Shop Name :</h5><input type="text" value="{{result.shopname}}"><br>
+                        <h5>Product :</h5><input type="text" value="{{result.productname}}"><br>
+                        <h5>Brand :</h5><input type="text" value="{{result.brandname}}"><br>
+                        <h5>Price :</h5><input type="text" value="{{result.price}}"><br>
+                    </div>
+                    <div class="p-4 rounded shadow-sm bg-light" style="margin-left: 250px; width: 180px; margin-top: -230px;"> 
+                        <input type="text" name="quantity" placeholder="Enter Your Quantity">
+                    </div> 
+                </div>
+                <div style="margin-left: 300px; margin-top: -160px;">
+                        <button type="submit" class="btn btn-success" style=" width: 120px;">Buy</button>
+                </div>
+                <div style="margin-left: 300px; margin-top: 20px;">
+                    <form action="{% url 'paymentsuccess' %}" method="post" class="custom-stripe-form">
+                        {% csrf_token %}
+                        <script src="https://checkout.stripe.com/checkout.js " class="stripe-button"
+                        data-key="pk_test_51PGzeKSCacTPmzToFPWgmX1GDY7VxgaLSG4lw1Q5F283xx5KtFKjuRFz9ucm8Y2NcK4j9o04tJvrmaAe8x9Z5uwP00n0gVLEa9"
+                        data-description="Payment Gateway"
+                        data-amount="500"
+                        data-locals="auto">
+                      </script>
+                    </form>
+                </div>
+                
+            </form>
+        </div> 
+    </div>
+</div>
+
+
+{% endblock %}

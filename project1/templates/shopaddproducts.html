@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Products 
+{% endblock %}
+
+{% block content %}
+<script>
+  function popup()
+  {
+    alert("Registered successfully")
+  }
+</script>
+{% load static %}
+
+    <h1 style="color: rgb(10, 10, 10); font-family: Verdana, Geneva, Tahoma, sans-serif; text-shadow: -3px 3px 4px #000000; margin-left: 650px;">Add Products</h1>
+    <br>
+    <div class="col-lg-5 align-self-center">
+        <form id="contact" action="shopproduct" enctype="multipart/form-data" method="POST" style="width: 1000px; border: none; height: 740px; box-shadow: 10px 10px 20px; background-color: rgb(228, 225, 213); margin-left: 250px;">
+            {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <img src="{% static 'images\shops.jpg' %}" style="height: 740px; width: 500px; margin-left: -15px;" alt="">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" align="center">
+                    <br><br>
+                    <div class="row" style="margin-left: 15px; margin-top: 100px;">
+                        <div class="col-lg-12" style="margin-top: -30px;">
+                            <fieldset>
+                              <input type="text" name="shopname" class="form-control" id="shopname" value="{{result.shopname}}" placeholder="Shop Name" autocomplete="on" required pattern="[A-Z a-z.]{3,25}" style="height: 30px; width: 250px; border: transparent; background-color: transparent;">
+                              <hr style="margin-top: -1px; color: black; width: 350px;">
+                            </fieldset>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-lg-12" style="margin-top: 30px;">
+                            <fieldset>
+                              <input type="type" name="productname" class="form-control" id="productname" placeholder="Product Name" autocomplete="on"  style="height: 30px; width: 250px; border: transparent; background-color: transparent;">
+                              <hr style="margin-top: -1px; color: black; width: 350px;">
+                            </fieldset>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-lg-12" style="margin-top: 30px;">
+                            <fieldset>
+                              <input type="type" name="brandname" class="form-control" id="brandname" placeholder="Brand Name" autocomplete="on"  style="height: 30px; width: 250px; border: transparent; background-color: transparent;">
+                              <hr style="margin-top: -1px; color: black; width: 350px;">
+                            </fieldset>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-lg-12" style="margin-top: 30px;">
+                          <fieldset>
+                            <input type="number" name="price" class="form-control" id="price" placeholder="Price" autocomplete="on" required pattern="" style="height: 30px; width: 250px; border: transparent; background-color: transparent;">
+                            <hr style="margin-top: -1px; color: black; width: 350px;">
+                          </fieldset>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-lg-12" style="margin-top: 30px;">
+                          <fieldset >
+                            <button type="submit" onclick="popup()" class="form-control me-2 button" id="form-submit" class="main-button" style="height: 60px; width: 250px; border-radius: 3px; background-color: #E8751A; font-weight: bold; color: white;">Add Products</button>
+                          </fieldset>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        </form>
+      </div> 
+
+  
+  <br><br><br><br>
+{% endblock %}

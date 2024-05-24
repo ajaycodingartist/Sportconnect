@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Instituition Profile
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<div class="row py-5 px-4"> 
+    <div class="col-md-5 mx-auto"> 
+        <!-- Profile widget --> 
+        <div class="bg-white shadow rounded overflow-hidden"> 
+            <div class="px-4 pt-0 pb-4 cover" style="height: 300px;"> 
+                <div class="media align-items-end profile-head"> 
+                    <div class="profile mr-3">
+                        <img src="../media/{{result.image}}" alt="..." width="130" class="rounded mb-2 img-thumbnail" style="height: 200px; width: 180px;">
+                    </div> 
+                    <div class="media-body mb-5 text-white" style="margin-left: 200px; margin-top: -125px;">
+                        <a href="{% url 'updateinstituition' id=result.id %}" class="btn btn-outline-dark btn-sm btn-block" style="border-color: white; color: white;">Edit profile</a>
+                        <h4 class="mt-0 mb-0">{{result.instituitionname}}</h4> 
+                        <p class="small mb-4"> 
+                        <i class="fas fa-map-marker-alt mr-2"></i>{{result.location}}</p> 
+                    </div> 
+                </div> 
+            </div> 
+            <!-- <div class="bg-light p-4 d-flex justify-content-end text-center"> 
+                <ul class="list-inline mb-0"> 
+                    <li class="list-inline-item"> 
+                        <h5 class="font-weight-bold mb-0 d-block">215</h5>
+                        <small class="text-muted"> 
+                        <i class="fas fa-image mr-1"></i>Photos</small> 
+                    </li> 
+                    <li class="list-inline-item"> 
+                        <h5 class="font-weight-bold mb-0 d-block">745</h5>
+                        <small class="text-muted"> 
+                        <i class="fas fa-user mr-1"></i>Followers</small> 
+                    </li> 
+                    <li class="list-inline-item"> 
+                        <h5 class="font-weight-bold mb-0 d-block">340</h5>
+                        <small class="text-muted"> 
+                        <i class="fas fa-user mr-1"></i>Following</small> 
+                    </li> 
+                </ul> 
+            </div>  -->
+            <div class="px-4 py-3" style="height: 350px;"> 
+                <h4 class="mb-0">About</h5> 
+                <div class="p-4 rounded shadow-sm bg-light" style="width: 180px;"> 
+                    <h5>Superviser :</h5><h6 class="font-italic mb-0">{{result.supervisername}}</h6><br>
+                    <h5>Email :</h5><h6 class="font-italic mb-0">{{result.email}}</h6><br>
+                    <h5>Phone :</h5><h6 class="font-italic mb-0">{{result.phone}}</h6><br>
+                </div>
+                <div class="p-4 rounded shadow-sm bg-light" style="margin-left: 250px; width: 180px; margin-top: -230px;"> 
+                    <h5>Event :</h5><h6 class="font-italic mb-0">{{result.event}}</h6> <br>
+                    <h5>Certification :</h5><h6 class="font-italic mb-0"><a href="{{result.icertificate.url}}">Certificate</a></h6> 
+                </div>
+                <div class="mb-4 pb-2" style="position: relative; top: 60px; left: 230px;">
+                    <a href="{% url 'instituitionselfdelete' id=result.id %}" onclick="return deletecheck()"><img src="{% static 'images\icons8-trash-30.png' %}" alt="" style="height: 50px; width: 50px;"></a> 
+                </div>
+            </div> 
+            <div class="py-4 px-4"> 
+                <div class="d-flex align-items-center justify-content-between mb-3"> 
+                    <h5 class="mb-0">Recent Events</h5>
+                    <a href="#" class="btn btn-link text-muted">Show all</a> 
+                </div> 
+                <div class="row">
+                    {% for r in evnt %}
+                    <div class="col-lg-6 mb-2 pr-lg-1">
+                        <h3>{{r.description}}</h3>
+                        <h5>{{r.event_date}}</h5>
+                        <!-- <a type="button" href="" onclick="return deletecheck()" style="height: 25px; width: 100px; background-color: red; border-radius: 3px;"></a> -->
+                            <a class="btn btn-danger" href="{% url 'instituitioneventdelete' id=r.id %}" onclick="return deletecheck()" role="button" style="width: 130px;">Delete</a>    
+                    </div>
+                    {% endfor %}
+                </div> 
+            </div> 
+        </div> 
+    </div>
+</div>
+
+<script>
+    function deletecheck()
+    {
+      return confirm("Are you sure to delete the record ?");
+    }
+</script>
+
+{% endblock %}

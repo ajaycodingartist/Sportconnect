@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Applications List 
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<style>
+  ::placeholder {
+  color: black;
+  opacity: 1; /* Firefox */
+  }
+</style>
+
+<br><br><br>
+<div class="container">
+  <h1 align="center" style="color: rgb(15, 15, 15); font-family: Verdana, Geneva, Tahoma, sans-serif">Applications List</h1>
+  <br><br><br>
+
+
+  <br><br><br>
+    <table class="table" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">User Name</th>
+            <th scope="col">Event</th>
+            <th scope="col">Date</th>
+            <!-- <th scope="col">Status</th>
+            <th scope="col">Toggle Status</th> -->
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for p in res %}
+          <tr>
+            <td>{{p.username}}</td>
+            <td>{{p.clubname.description}}</td>
+            <td>{{p.applied_date}}</td>
+            <!-- <td>{{p.status}}</td>
+            <td><button class="toggle-status" data-id="{{p.id}}">Toggle</button></td> -->
+            <!-- <td>
+              <button class="status-toggle" data-application-id="{{ p.id }}" data-status="{{ p.status }}">
+                  {% if p.status %}
+                      Deactivate
+                  {% else %}
+                      Activate
+                  {% endif %}
+              </button>
+            </td> -->
+            <td><a href="">Delete</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <br><br><br><br><br>
+</div>
+
+
+<script>
+  $(document).ready(function() {
+    $(".toggle-status").click(function() {
+      var id = $(this).data("id");
+      $.ajax({
+        type: "POST",
+        url: "/toggle-status/",
+        data: {
+          id: id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function(response) {
+          if (response.success) {
+            // Update the status in the table without refreshing the page
+            location.reload(); // You can replace this with a more efficient way to update the status
+          }
+        }
+      });
+    });
+  });
+  </script>
+
+{% endblock %}
+
+<!-- <script>
+  $(document).ready(function() {
+      $('.status-toggle').click(function() {
+          var applicationId = $(this).data('application-id');
+          var currentStatus = $(this).data('status');
+          var newStatus = !currentStatus;
+
+          $.ajax({
+              type: 'POST',
+              url: '/update_status/',
+              data: {
+                  'application_id': applicationId,
+                  'new_status': newStatus,
+                  'csrfmiddlewaretoken': '{{ csrf_token }}'
+              },
+              success: function(response) {
+                  if (response.success) {
+                      // Update button text and data attribute
+                      $('.status-toggle[data-application-id="' + applicationId + '"]')
+                          .data('status', newStatus)
+                          .text(newStatus ? 'Deactivate' : 'Activate');
+                  } else {
+                      alert('Failed to update status.');
+                  }
+              },
+              error: function(xhr, status, error) {
+                  console.error(xhr.responseText);
+                  alert('An error occurred while processing your request.');
+              }
+          });
+      });
+  });
+</script> -->

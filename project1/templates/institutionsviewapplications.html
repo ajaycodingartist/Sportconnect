@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Applications List 
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<style>
+  ::placeholder {
+  color: black;
+  opacity: 1; /* Firefox */
+  }
+</style>
+
+<br><br><br>
+<div class="container">
+  <h1 align="center" style="color: rgb(15, 15, 15); font-family: Verdana, Geneva, Tahoma, sans-serif">Applications List</h1>
+  <br><br><br>
+
+
+  <br><br><br>
+    <table class="table" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">User Name</th>
+            <th scope="col">Date</th>
+            <!-- <th scope="col">Status</th> -->
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for p in res %}
+          <tr>
+            <td>{{p.username}}</td>
+            <td>{{p.applied_date}}</td>
+            <!-- <td>{{p.status}}</td> -->
+            <td><a href="{% url 'instituitionseventsappltndelete' id=p.id %}" onclick="return deletecheck()"><img src="{% static 'images\icons8-trash-30.png' %}" alt="" style="height: 50px; width: 50px;"></a> </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <br><br><br><br><br>
+</div>
+
+<script>
+  function deletecheck()
+  {
+    return confirm("Are you sure to delete the record ?");
+  }
+</script>
+{% endblock %}
